@@ -1,45 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { db } from './firebase'
 
 const Main = () => {
-  return (
-    <>
-    <section class="w3l-aboutblock py-5">
-                        <div class="container py-md-5 py-sm-4 HomePageCWP">
+    const [title, setTitle] = useState([])
 
-                            <div class="row">
-                                <div class="col-lg-8 left-wthree-img mb-lg-0 mb-md-5 mb-4">
-                                    <img class="img-fluid img-responsive" src="https://wp.w3layouts.com/aquarium/wp-content/themes/aquarium/assets/images/about1.jpg" alt=" "/>
-                                </div>
-                                <div class="col-lg-4 about-right-faq align-self position-relative pl-lg-5">
-                                    <h6 class="left-text-design">Aquarium </h6>
-                                    <h3 class="title-style mb-2 pl-4">Aquarium Design, Manufacture </h3>
-                                    <p class="mt-3 pl-4">Lorem ipsum viverra feugiat. Pellen tesque libero ut justo, ultrices in ligula. Semper at tempufddfel. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    </p>
-                                    <p class="mt-3 pl-4">Semper at tempufddfel. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quae, fugiat.</p>
-                                    <a class="btn btn-style mt-4 ml-4" href="#url">
-                Learn More</a>
-                                </div>
+    const [big, setBig] = useState([])
+
+    useEffect(() => {
+        db.collection('brekingnews').onSnapshot(tap => (
+            setTitle(tap.docs.map((e) => (e.data())))
+        ))
+    }, [])
+
+    useEffect(() => {
+        db.collection('bignews').onSnapshot(tap => (
+            setBig(tap.docs.map((e) => (e.data())))
+        ))
+    }, [])
+
+
+
+    return (
+        <>
+            <div class="container py-md-5 py-sm-4 HomePageCWP">
+                <div class="row">
+                    {title.map((e) => (
+                        <>
+                            <div class="col-lg-8 left-wthree-img mb-lg-0 mb-md-5 mb-4">
+                                <div className='brekingtitle'><a href={e.video}><h3>{e.title}</h3></a></div>
+                                <img class="img-fluid img-responsive" src={e.image} alt=" " />
                             </div>
+                        </>
+                    ))}
 
-                            <div class="row mt-5 pt-lg-4">
-                                <div class="col-lg-6 left-wthree-img mb-lg-0 mb-md-5 mb-4 order-lg-last">
-                                    <img class="img-fluid img-responsive" src="https://wp.w3layouts.com/aquarium/wp-content/themes/aquarium/assets/images/about2.jpg" alt=" "/>
+                   
+                            <div className=' col-lg-3 bignewstitle'>
+                            {big.map((e) => (
+                        <>
+                                <div className='bignewsdiv'>
+                                    <a href={e.video}><h6>{e.title}</h6></a>
+                                    <img className='bigimage' src={e.image} />
                                 </div>
-                                <div class="col-lg-6 about-right-faq align-self position-relative pl-lg-5 order-lg-first">
-                                    <h6 class="left-text-design">Aquarium </h6>
-                                    <h3 class="title-style mb-2 pl-4">Aquarium Maintenance Services </h3>
-                                    <p class="mt-3 pl-4">Lorem ipsum viverra feugiat. Pellen tesque libero ut justo, ultrices in ligula. Semper at tempufddfel. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    </p>
-                                    <p class="mt-3 pl-4">Semper at tempufddfel. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quae, fugiat.</p>
-                                    <a class="btn btn-style mt-4 ml-4" href="#url">
-                Learn More</a>
-                                </div>
+                                </>
+                    ))}
                             </div>
+                   
+                </div>
+            </div>
 
-                        </div>
-                    </section>
-    </>
-  )
+        </>
+    )
 }
 
 export default Main
