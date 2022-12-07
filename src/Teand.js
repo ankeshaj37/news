@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { db } from './firebase'
 
 const Teand = () => {
@@ -7,14 +8,16 @@ const Teand = () => {
 
   useEffect(() => {
       db.collection('trendingnews').onSnapshot(tap => (
-        setTrend(tap.docs.map((e) => (e.data())))
+        setTrend(tap.docs.map((e) => ({uid:e.id,data:e.data()})))
       ))
   }, [])
   return (
     <>
       <section class="w3l-features" id="work">
                         <div class="container py-lg-5 py-4 HomePageServices">
-                           <div className='terndingtitle'> <h3>Trending News</h3></div>
+                        <div className='brekname' >
+                            <h4 className="alltitle" >Trending News</h4>     
+                        </div>
                          
                                      <div class="row main-cont-wthree-2 py-5">
                                      
@@ -25,12 +28,12 @@ const Teand = () => {
                                     <>
 
                     <div class="col-md-4 col-6 col-sec">
-                            <div class="box-wrap">
+                            <div className="box-wrap">
                                 <div class="icon">
-                                    <img src="https://wp.w3layouts.com/aquarium/wp-content/themes/aquarium/assets/images/s5.jpg" class="img-fluid" alt="" />
+                                    <img src={e.data.image} class="img-fluid" alt="" />
                                 </div>
-                                <h4><a href="#url" class="title-head">
-            Healthy Services</a></h4>
+                                <h4><Link to={`/${e.uid}`} href={e.data.video} class="title-head">
+           {e.data.title}</Link></h4>
                             </div>
                         </div>
                         </>

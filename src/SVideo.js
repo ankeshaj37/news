@@ -13,49 +13,44 @@ const Video = () => {
  const [first, setFirst] = useState("")
  const [firstt, setFirstt] = useState("")
 
- 
+  
  useEffect(() => {
-  if (param.id) {
-    db.collection('bignews').doc(param?.id).onSnapshot(tap=>(
-      setFirst(tap.data())
-     ))
-  }
+  db.collection('topnews').doc(param?.id).onSnapshot(tap=>(
+    setFirst(tap.data())
+    
+   ))
  }, [param.id])
-
- 
  useEffect(() => {
-  db.collection('brekingnews').doc(param?.id).onSnapshot(tap=>(
+  db.collection('trendingnews').doc(param?.id).onSnapshot(tap=>(
     setFirstt(tap.data())
     
    ))
  }, [param.id])
- 
-
- 
  
  
   return (
     <>
     <Navbar/>
     <Menubar/>
-   
-    <>
-     <div className=' container'>
-      <div className=' vdiv col'>
-<div className='col-lg-4'>
-  <h3>shsks</h3>
-</div>
-<div className='col-lg-4'>
-<video width="300" height="240" controls src='https://youtu.be/EN6KIOt0usA'>
-
-</video>
-</div>
-<div className='col-lg-4'>
-  information
-</div>
-      </div>
-     </div>
-    </>
+     {first? <>
+     <div>
+      <p>{first?.title}</p>
+     <video href={first?.video}></video>
+     <img src= {first?.image}/>
+     <p>
+      {first?.info}
+     </p>
+      </div></>: <>
+     <div>
+      <p>{firstt?.title}</p>
+     <video href={firstt?.video}></video>
+     <img src= {firstt?.image}/>
+     <p>
+      {firstt?.info}
+     </p>
+      </div></>
+    
+     }
     <Footer/>
     </>
   )

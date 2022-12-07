@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Menubar = () => {
     return (
         <>
             <div className='menu container-fluid'>
                 <div className='ull row'>
-                    <li className='cat'>Home</li>
-                    <li className='cat'>Live News</li>
+                    <Link to='/' className='cat'>Home</Link>
+                    <Link  to='/live' className='cat'>Live News</Link>
                     <select className=" cat form-select" aria-label="Default select example">
   <option selected>Category</option>
   <option value="1">Breking Ns</option>
@@ -18,10 +19,7 @@ const Menubar = () => {
   <option value="3">Business Ns</option>
   <option value="3">Sport News</option>
   <option value="3">Education Ns</option>
-  
-</select>
-  
-                    <li className='cat'>Login</li>
+</select>                 
                 </div>
             </div>
         </>

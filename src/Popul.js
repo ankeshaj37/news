@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { db } from "./firebase";
  
 const Popul = () => {
@@ -7,16 +8,18 @@ const Popul = () => {
 
   useEffect(() => {
       db.collection('populernews').onSnapshot(tap => (
-        setPopu(tap.docs.map((e) => (e.data())))
+        setPopu(tap.docs.map((e) => ({uid:e.id,data:e.data()})))
       ))
   }, [])
   return (
     <>
       <div class="w3l-grids-block-5 pb-5">
-        <div class=" container HomepageBlogPosts">
+        <div class="  container HomepageBlogPosts">
           <div
             class="title-main text-center mx-auto mb-4">
-            <h3 class="title-style">Populer News</h3>
+           <div className="brekname">
+           <h4 className="alltitle">Populer News</h4>
+           </div>
             
           </div>
           <div class=" popdiv row justify-content-center">
@@ -24,28 +27,27 @@ const Popul = () => {
                 <>
             <div class="col-lg-4 col-sm-6 mt-sm-5 pt-lg-2">
              
-                      <div class=" grids5-info">
-                <a href="https://wp.w3layouts.com/aquarium/2022/03/26/hello-world/">
-                  <div class="post-thumbnail">
-                    <img
-                      width="640"
-                      height="426"
-                      src={e.image}
+                      <div class="  grids5-info">
+             
+                  <div class=" cc post-thumbnail">
+                    <img 
+                      width="300px"
+                      height="300px"
+                      src={e.data.image}
                       class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
                       alt=""
                     />
-                  </div>
-                </a>
-                <div class="blog-info">
-                  <p>{e.title}</p>
-                  <a class="btn btn-style mt-4" href={e.video}>
+                      <div class="blog-info">
+                  <p>{e.data.title}</p>
+                  <Link to={`/${e.uid}`} class="btn btn-style mt-4" href={e.data.video}>
                     Read More
-                  </a>
+                  </Link>
                 </div>
+                  </div>
+             
+              
               </div>
               
-        
-
             </div>
 
             </>
