@@ -29,7 +29,8 @@ const Popul = () => {
              
                       <div class="  grids5-info">
              
-                  <div class=" cc post-thumbnail">
+                  <div data-aos="fade-up"
+     data-aos-duration="3000" class=" cc post-thumbnail">
                     <img 
                       width="300px"
                       height="300px"

@@ -27,7 +27,9 @@ const Teand = () => {
                     {trend.map((e)=>(
                                     <>
 
-                    <div class="col-md-4 col-6 col-sec">
+                    <div  data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000" class="col-md-4 col-6 col-sec">
                             <div className="box-wrap">
                                 <div class="icon">
                                     <img src={e.data.image} class="img-fluid" alt="" />

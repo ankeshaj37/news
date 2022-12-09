@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css'
 import Home from './Home';
 import Video from './Video';
-import SVideo from './SVideo'
+
 import Teand from './Teand';
+import Bigvideo from './Bigvideo';
+
 const App = () => {
  
   return (
@@ -13,10 +15,12 @@ const App = () => {
     
     <Routes>
       <Route path='/' element={<Home/>}/>
-      <Route path='/:id' element={<Video/>}/>
-      <Route path='/:id' element={<SVideo/>}/>
       <Route path='/live' element={<Teand/>}/>
-      
+
+      <Route path='/:id' element={<Video/>}/>
+      <Route path='/:name' element={<Bigvideo/>}/>
+
+   
     </Routes>
     
     </BrowserRouter>
